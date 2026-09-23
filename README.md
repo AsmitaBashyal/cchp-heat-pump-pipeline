@@ -37,4 +37,4 @@ Next steps
 Integrate real historical weather data (Environment and Climate Change Canada) in place of the synthetic weather profile
 Re-target modeling to proxy COP rather than raw electrical power
 Replace simulated data with real lab/field measurements as they become available
-Extend to the physics-informed and regime-aware modeling framework described in the full thesis proposal
+Extend to the physics-informed and regime-aware modeling framework described in the full thesis proposal.
