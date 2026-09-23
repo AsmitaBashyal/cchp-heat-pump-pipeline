@@ -1,0 +1,9 @@
+CoolProp
+pandas
+numpy
+matplotlib
+hdbscan
+scikit-learn
+xgboost
+shap
+openpyxl
