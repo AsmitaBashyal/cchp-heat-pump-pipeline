@@ -7,3 +7,6 @@ scikit-learn
 xgboost
 shap
 openpyxl
+streamlit
+plotly
+pyarrow

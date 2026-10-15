@@ -10,6 +10,8 @@ run_simulation.py — generates the simulated dataset
 eda_beginner.py — exploratory data analysis and basic charts
 regime_discovery_beginner.py — HDBSCAN clustering to detect operating regimes (steady-state heating vs. defrost), validated against the simulator's known ground truth
 shap_beginner.py — XGBoost baseline model predicting electrical power draw, with SHAP feature-importance analysis
+Dashboard/ — interactive UI prototype (Streamlit + Plotly) on the v3 simulated dataset (R-454B, three BC sites, outdoor humidity): sensor time series with time-period buttons, sensor-relationship plots, and model accuracy (XGBoost and graph-attention COP predictions with 90 % conformal intervals). Run with: python -m streamlit run Dashboard/app.py (see Dashboard/README.md)
+Outputs_v3/ — the v3 pipeline outputs the dashboard reads (simulated data only)
 Status and scope
 Data: 100% simulated, generated from documented thermodynamic relationships — not real sensor or field measurements. No lab or field data has been collected yet for this project.
 Models: standard, non-physics-informed baselines (XGBoost). Not the physics-informed / graph-based models planned for the full thesis.
@@ -18,13 +20,13 @@ Authorship note
 
 I am a data science student with no prior coding background before this project. To be specific about how this repo was built:
 
-Written by AI (Claude): all the Python code in this repo — the simulator physics, the analysis scripts, and this README.
+Written by AI (Claude): all the Python code in this repo — the simulator physics, the analysis scripts, the dashboard, and this README.
 Done by me: installing the required tools (Python, VS Code), running every script, reading and interpreting the output, deciding what to try next, catching and reporting errors, and validating that the results made sense (e.g., checking the HDBSCAN clusters against known ground truth).
 
 I'm including this note deliberately rather than presenting the code as self-written, since accurate attribution matters to me both academically and professionally.
 
 Requirements
-pip install CoolProp pandas numpy matplotlib hdbscan scikit-learn xgboost shap openpyxl
+pip install CoolProp pandas numpy matplotlib hdbscan scikit-learn xgboost shap openpyxl streamlit plotly pyarrow
 Running it
 python run_simulation.py --run-tag v1
 python eda_beginner.py
