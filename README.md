@@ -1,42 +1,63 @@
-Cold-Climate Heat Pump: Interim Data Pipeline (Simulated Data)
+# Cold-Climate Heat Pump: Interim Data Pipeline Using Simulated Data
 
-Interim data pipeline and baseline analysis built while real lab/field data collection for my MSc research project (Thompson Rivers University) is still pending. This repo demonstrates the pipeline — simulation, exploratory analysis, unsupervised regime detection, and a baseline predictive model with explainability — running end-to-end on physics-based simulated data.
+This repository contains an initial data pipeline for my MSc research project at Thompson Rivers University. I developed this prototype while waiting for real data from the laboratory and field sensors to become available.
 
-This is not the thesis research itself. It is a working, tested prototype of the pipeline that will later run on real cold-climate heat pump sensor data once field/lab deployment begins. See "Status and scope" below for exactly what this is and isn't.
+The project demonstrates the main steps of a data science pipeline, including data simulation, exploratory data analysis, operating regime detection, and a baseline prediction model with explainability. The pipeline uses simulated data based on thermodynamic relationships.
 
-What's in this repo
-cchp_simulator/ — physics-based CCHP simulator (steady-flow energy balance, CoolProp thermodynamic properties, defrost-cycle logic) that generates realistic sensor-style data
-run_simulation.py — generates the simulated dataset
-eda_beginner.py — exploratory data analysis and basic charts
-regime_discovery_beginner.py — HDBSCAN clustering to detect operating regimes (steady-state heating vs. defrost), validated against the simulator's known ground truth
-shap_beginner.py — XGBoost baseline model predicting electrical power draw, with SHAP feature-importance analysis
-Dashboard/ — interactive UI prototype (Streamlit + Plotly) on the v3 simulated dataset (R-454B, three BC sites, outdoor humidity): sensor time series with time-period buttons, sensor-relationship plots, and model accuracy (XGBoost and graph-attention COP predictions with 90 % conformal intervals). Run with: python -m streamlit run Dashboard/app.py (see Dashboard/README.md)
-Outputs_v3/ — the v3 pipeline outputs the dashboard reads (simulated data only)
-Status and scope
-Data: 100% simulated, generated from documented thermodynamic relationships — not real sensor or field measurements. No lab or field data has been collected yet for this project.
-Models: standard, non-physics-informed baselines (XGBoost). Not the physics-informed / graph-based models planned for the full thesis.
-Purpose: validate that the pipeline (ingestion → EDA → regime detection → modeling → explainability) works correctly end-to-end before real data is available.
-Authorship note
+**This is not the final thesis research.** It is a working prototype that I can test and improve before using real sensor data from a cold-climate heat pump. The *Status and Scope* section explains the current limitations of this work.
 
-I am a data science student with no prior coding background before this project. To be specific about how this repo was built:
+## What's in this repository
 
-Written by AI (Claude): all the Python code in this repo — the simulator physics, the analysis scripts, the dashboard, and this README.
-Done by me: installing the required tools (Python, VS Code), running every script, reading and interpreting the output, deciding what to try next, catching and reporting errors, and validating that the results made sense (e.g., checking the HDBSCAN clusters against known ground truth).
+- `cchp_simulator/`: A physics-based heat pump simulator that uses energy balance equations, CoolProp thermodynamic properties, and defrost cycle logic to generate sensor-like data.
+- `run_simulation.py`: Generates the simulated dataset.
+- `eda_beginner.py`: Explores the data and creates basic charts.
+- `regime_discovery_beginner.py`: Uses HDBSCAN clustering to identify different operating conditions, such as normal heating and defrost cycles. The results are compared with the known operating conditions from the simulator.
+- `shap_beginner.py`: Uses an XGBoost model to predict electrical power consumption and SHAP to understand which features are important for the predictions.
+- `Dashboard/`: Interactive Streamlit + Plotly dashboard prototype on the v3 simulated dataset (R-454B + humidity) with sensor time-series controls, sensor-relationship views, and model-accuracy views with conformal intervals. Run with `python -m streamlit run Dashboard/app.py`.
+- `Outputs_v3/`: v3 simulated outputs used by the dashboard.
 
-I'm including this note deliberately rather than presenting the code as self-written, since accurate attribution matters to me both academically and professionally.
+## Status and scope
 
-Requirements
+**Data:** All data in this repository is simulated. It is generated using documented thermodynamic relationships and does not come from real sensor readings or field measurements. Real laboratory and field data collection has not started yet.
+
+**Models:** The current prediction model uses XGBoost, which is a standard machine learning method. It is not a physics-informed or graph-based model. These more advanced methods are planned for the full thesis research.
+
+**Purpose:** The main goal is to check whether the complete pipeline works correctly, from data generation and exploration to operating regime detection, prediction, and explainability. This will help prepare the pipeline for real data when it becomes available.
+
+## Authorship and AI use
+
+I am a data science student, and I did not have a coding background before starting this project. I want to be clear about how I developed this repository.
+
+Claude AI wrote all the Python code, including the simulator, analysis scripts, dashboard files, and this README file.
+
+My contribution was setting up the required tools, including Python and VS Code, running each script, studying the outputs, and deciding what to test next. I also identified and reported errors and checked whether the results made sense. For example, I compared the HDBSCAN clustering results with the operating conditions already known from the simulator.
+
+I have included this explanation because I believe it is important to be honest about my work and the role of AI in developing it, both academically and professionally.
+
+## Requirements
+
+Install the required Python packages using:
+
+```bash
 pip install CoolProp pandas numpy matplotlib hdbscan scikit-learn xgboost shap openpyxl streamlit plotly pyarrow
-Running it
+```
+
+## How to run
+
+Run the following commands in order:
+
+```bash
 python run_simulation.py --run-tag v1
 python eda_beginner.py
 python regime_discovery_beginner.py
 python shap_beginner.py
+```
 
-Charts are saved to plots/.
+The generated charts are saved in the `plots/` directory.
 
-Next steps
-Integrate real historical weather data (Environment and Climate Change Canada) in place of the synthetic weather profile
-Re-target modeling to proxy COP rather than raw electrical power
-Replace simulated data with real lab/field measurements as they become available
-Extend to the physics-informed and regime-aware modeling framework described in the full thesis proposal.
+## Next steps
+
+1. Add historical weather data from Environment and Climate Change Canada instead of using the current simulated weather profile.
+2. Change the prediction target from electrical power consumption to an estimated coefficient of performance (COP).
+3. Replace simulated data with real laboratory and field sensor measurements when they become available.
+4. Develop the physics-informed and operating-regime-aware models proposed for the full thesis research.
